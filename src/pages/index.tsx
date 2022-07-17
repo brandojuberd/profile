@@ -1,7 +1,9 @@
 import { css, Grid, Typography, useTheme } from '@mui/material';
+import { PageProps } from 'gatsby';
 import * as React from 'react';
+import SEO from '../components/seo';
 
-const IndexPage = () => {
+const IndexPage = (props: PageProps) => {
   const theme = useTheme();
   return (
     <Grid
@@ -17,18 +19,18 @@ const IndexPage = () => {
         }
       `}
     >
+      <SEO {...props} />
       <Grid item>
         <Typography
           // css={css`
           //   margin-top: 0;
           // `}
           variant="h3"
-
         >
-          About Me
+          Tech guy.
         </Typography>
         {/* <h3>{frontmatter.date}</h3> */}
-        <Typography
+        {/* <Typography
           css={css`
             * {
               padding: 0;
@@ -43,8 +45,17 @@ const IndexPage = () => {
           problems with the right paradigm and critical thinking, and in
           developing new technology or application I need an aptitude to learn
           and adapt which I believe I have.
-        </Typography>
+        </Typography> */}
       </Grid>
+      {/* <Grid item>
+        <Typography variant="h3">Algorithm</Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="h3">Softwware</Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="h3">Softwware</Typography>
+      </Grid> */}
     </Grid>
   );
 };

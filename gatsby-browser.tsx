@@ -15,6 +15,7 @@ import { Global } from '@emotion/react';
 import { colors, globalCss, materialUiTheme } from './src/styles/theme';
 import ResponsiveHeader from './src/components/responsive-header';
 import { Helmet } from 'react-helmet';
+import SEO from './src/components/seo';
 
 export const wrapRootElement: GatsbyBrowser['wrapPageElement'] = ({
   props,
@@ -24,11 +25,7 @@ export const wrapRootElement: GatsbyBrowser['wrapPageElement'] = ({
     <>
       <Global styles={globalCss} />
       <ThemeProvider theme={materialUiTheme}>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Brando Juberd</title>
-          <link rel="canonical" href="https://brandojuberd.com" />
-        </Helmet>
+        {/* <SEO/> */}
         <CssBaseline />
         <Grid
           {...props}

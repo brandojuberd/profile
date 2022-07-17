@@ -33,6 +33,10 @@ export const materialUiTheme = createTheme({
       light: "#f5f5f5",
       dark: "#f5f5f5",
       contrastText: "rgba(0,0,0,0.87)"
+    },
+    text: {
+      primary: "#303030"
+      // primary: "rgba(0,0,0,0.6)"
     }
   },
 });

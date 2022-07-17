@@ -14,12 +14,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const thirdPartyLinks = [
   {
-    icon: GitHubIcon,
+    icon: <GitHubIcon/>,
     link: 'https://github.com/brandojuberd',
     label: 'GitHub',
   },
   {
-    icon: LinkedIn,
+    icon: <LinkedIn/>,
     link: 'https://www.linkedin.com/in/brandojuberd',
     label: 'LinkedIn',
   },
@@ -43,6 +43,7 @@ export default function ResponsiveHeader() {
         position: sticky;
         top: 0;
         padding: 1rem;
+        text-align: center;
         @media (max-width: ${theme.breakpoints.values.md}px) {
           position: static;
           height: inherit;
@@ -57,16 +58,15 @@ export default function ResponsiveHeader() {
     >
       <Grid item container justifyContent={'space-evenly'}>
         {['BRANDO', 'JUBERD'].map((text) => (
-          <Grid item md={12}>
+          <Grid item xs={12}>
             <Typography
               color="grey.A100"
               variant="h1"
               lineHeight={'73%'}
               fontFamily={'Arial, Helvetica, sans-serif;'}
               css={css`
-                font-size: 5rem;
                 @media (max-width: 336px) {
-                  font-size: 4rem;
+                  font-size: 9rem;
                 }
                 @media (min-width: ${theme.breakpoints.values.md}px) {
                   font-size: 6rem;
@@ -121,11 +121,11 @@ export default function ResponsiveHeader() {
           // justifyContent={'space-evenly'}
           margin="4px"
           padding="4px"
-          xs={7}
+          xs={12}
           // spacing={1}
           borderRadius={'4px'}
           css={css`
-            background-color: ${theme.palette.background.default};
+            // background-color: ${theme.palette.background.default};
             flex-direction: row-reverse;
             margin-top: 1rem;
             @media (max-width: ${theme.breakpoints.values.md}px) {
@@ -138,8 +138,8 @@ export default function ResponsiveHeader() {
             <Grid item>
               <Button
                 variant="contained"
-                color="primary"
-                startIcon={<LinkedIn />}
+                color="tertiary"
+                startIcon={linkObj.icon}
                 css={css`
                   margin: 3px;
                   border-radius: 30px;
