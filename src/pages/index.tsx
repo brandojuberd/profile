@@ -1,10 +1,27 @@
 import { css, Grid, Typography, useTheme } from '@mui/material';
-import { PageProps } from 'gatsby';
+import { PortableText, PortableTextBlockComponent } from '@portabletext/react';
+import { graphql, PageProps } from 'gatsby';
 import * as React from 'react';
 import SEO from '../components/seo';
+import StoryPreview from '../components/story-preview';
+import { SanityStoryNode } from '../interfaces/sanity-node.interface';
 
-const IndexPage = (props: PageProps) => {
+type IndexPageProps = PageProps<{
+  // data: {
+  allSanityStory: {
+    nodes: SanityStoryNode[];
+  };
+  // }
+}>;
+
+const IndexPage = (props: IndexPageProps) => {
+  const { data } = props;
   const theme = useTheme();
+
+  console.log({
+    data,
+  });
+
   return (
     <Grid
       item
@@ -20,6 +37,9 @@ const IndexPage = (props: PageProps) => {
       `}
     >
       <SEO {...props} />
+      {data.allSanityStory.nodes.map((node) => {
+        return <StoryPreview sanityNode={node} />;
+      })}
       <Grid item>
         <Typography
           // css={css`
@@ -60,4 +80,28 @@ const IndexPage = (props: PageProps) => {
   );
 };
 
+export const query = graphql`
+  query MyQuery {
+    allSanityStory(sort: { fields: _createdAt, order: DESC }) {
+      nodes {
+        _createdAt
+        _id
+        body {
+          _key
+          children {
+            _key
+            text
+            marks
+            _type
+          }
+          list
+          style
+          _type
+          _rawChildren(resolveReferences: { maxDepth: 10 })
+        }
+        title
+      }
+    }
+  }
+`;
 export default IndexPage;
