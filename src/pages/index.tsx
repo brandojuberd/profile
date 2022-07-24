@@ -6,31 +6,34 @@ import SEO from '../components/seo';
 const IndexPage = (props: PageProps) => {
   const theme = useTheme();
   return (
-    <Grid
-      item
-      container
-      alignItems={'center'}
-      alignContent={'center'}
-      padding={'16px'}
-      css={css`
-        height: 100vh;
-        @media (max-width: ${theme.breakpoints.values.md}px) {
-          height: inherit;
-        }
-      `}
-    >
-      <SEO {...props} />
-      <Grid item>
-        <Typography
-          // css={css`
-          //   margin-top: 0;
-          // `}
-          variant="h3"
-        >
-          Tech guy.
-        </Typography>
-        {/* <h3>{frontmatter.date}</h3> */}
-        {/* <Typography
+    <>
+      <Grid
+        item
+        container
+        alignItems={'center'}
+        alignContent={'center'}
+        padding={'16px'}
+        css={css`
+          height: 100vh;
+          width: inherit;
+          @media (max-width: ${theme.breakpoints.values.md}px) {
+            height: inherit;
+          }
+          background-color: ${theme.palette.success.main};
+        `}
+      >
+        <SEO {...props} />
+        <Grid item>
+          <Typography
+            // css={css`
+            //   margin-top: 0;
+            // `}
+            variant="h3"
+          >
+            Tech guy.
+          </Typography>
+          {/* <h3>{frontmatter.date}</h3> */}
+          {/* <Typography
           css={css`
             * {
               padding: 0;
@@ -46,8 +49,8 @@ const IndexPage = (props: PageProps) => {
           developing new technology or application I need an aptitude to learn
           and adapt which I believe I have.
         </Typography> */}
-      </Grid>
-      {/* <Grid item>
+        </Grid>
+        {/* <Grid item>
         <Typography variant="h3">Algorithm</Typography>
       </Grid>
       <Grid item>
@@ -56,7 +59,18 @@ const IndexPage = (props: PageProps) => {
       <Grid item>
         <Typography variant="h3">Softwware</Typography>
       </Grid> */}
-    </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        css={css`
+          height: 100vh;
+          @media (max-width: ${theme.breakpoints.values.md}px) {
+            height: inherit;
+          }
+        `}
+      ></Grid>
+    </>
   );
 };
 
