@@ -1,32 +1,103 @@
 import { GitHub, LinkedIn } from '@mui/icons-material';
 import {
+  Box,
   Button,
   Chip,
   Container,
   css,
   Grid,
   IconButton,
+  Slider,
+  styled,
   Typography,
   useTheme,
 } from '@mui/material';
 import React from 'react';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { grey } from '@mui/material/colors';
+import { useState } from 'react';
 
 const thirdPartyLinks = [
   {
-    icon: <GitHubIcon/>,
+    icon: <GitHubIcon />,
     link: 'https://github.com/brandojuberd',
     label: 'GitHub',
   },
   {
-    icon: <LinkedIn/>,
+    icon: <LinkedIn />,
     link: 'https://www.linkedin.com/in/brandojuberd',
     label: 'LinkedIn',
   },
 ];
 
+const Puller = styled(Box)(({ theme }) => ({
+  width: 6,
+  height: 60,
+  backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
+  borderRadius: 3,
+  position: 'absolute',
+  right: 10,
+  // left: 'calc(50% - 15px)',
+  '&:hover': {
+    background: theme.palette.mode === 'light' ? grey[400] : grey[400],
+  },
+}));
+
 export default function ResponsiveHeader() {
   const theme = useTheme();
+
+  const [width, setWidth] = useState(50);
+
+  function handleDragPuller(e: React.DragEvent<HTMLDivElement>) {
+    const clientWidth = document.documentElement.clientWidth;
+    const maxX = clientWidth * 0.5;
+    const minX = clientWidth * 0.1;
+    let currentX = e.clientX;
+    if (currentX > maxX) {
+      currentX = maxX;
+    } else if (currentX < minX) {
+      currentX = minX;
+    }
+    setWidth((currentX / maxX) * 50);
+
+    const elHeader = document.getElementById('responsive-header');
+    console.log({
+      maxX,
+      currentX,
+      width,
+      elHeader,
+    });
+  }
+
+  function handlerDragEndPuller(e: React.DragEvent<HTMLDivElement>) {
+    const clientWidth = document.documentElement.clientWidth;
+    const maxX = clientWidth * 0.5;
+    const minX = clientWidth * 0.1;
+    let currentX = e.clientX;
+    if (currentX > maxX) {
+      currentX = maxX;
+    } else if (currentX < minX) {
+      currentX = minX;
+    }
+    setWidth((currentX / maxX) * 50);
+
+    const elHeader = document.getElementById('responsive-header');
+    console.log({
+      maxX,
+      currentX,
+      width,
+      elHeader,
+    });
+  }
+
+  function handleClickPuller(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
+    if (width === 50) {
+      setWidth(10);
+    } else {
+      setWidth(50)
+    }
+  }
   return (
     <Grid
       item
@@ -34,15 +105,16 @@ export default function ResponsiveHeader() {
       alignItems={'center'}
       alignContent={'center'}
       direction={'row-reverse'}
-      md={6}
+      // md={6}
+      id="responsive-header"
       css={css`
         background-color: ${theme.palette.primary.main};
         height: 100vh;
-        width: 100%;
+        width: ${width}%;
         position: -webkit-sticky; /* Safari */
         position: sticky;
         top: 0;
-        padding: 1rem;
+        padding: 2rem;
         text-align: center;
         @media (max-width: ${theme.breakpoints.values.md}px) {
           position: static;
@@ -54,35 +126,69 @@ export default function ResponsiveHeader() {
         @media (min-width: ${theme.breakpoints.values.md}px) {
           text-align: right;
         }
+        // user-drag: none;
+        // user-select: none;
       `}
     >
-      <Grid item container justifyContent={'space-evenly'}>
-        {['BRANDO', 'JUBERD'].map((text) => (
-          <Grid item xs={12}>
-            <Typography
-              color="grey.A100"
-              variant="h1"
-              lineHeight={'73%'}
-              fontFamily={'Arial, Helvetica, sans-serif;'}
-              css={css`
-                @media (max-width: 336px) {
-                  font-size: 9rem;
-                }
-                @media (min-width: ${theme.breakpoints.values.md}px) {
-                  font-size: 6rem;
-                }
-                @media (min-width: 1126px) {
-                  font-size: 8rem;
-                }
-                @media (min-width: 1260px) {
-                  font-size: 9rem;
-                }
-              `}
-            >
-              {text}
-            </Typography>
-          </Grid>
-        ))}
+      <Grid
+        item
+        container
+        justifyContent={'space-evenly'}
+        direction={width < 40 ? 'column' : 'row'}
+      >
+        {width < 40 ? (
+          <Typography
+            color="grey.A100"
+            variant="h1"
+            lineHeight={'73%'}
+            fontFamily={'Arial, Helvetica, sans-serif;'}
+            // css={css`
+            //   @media (max-width: 336px) {
+            //     font-size: 9rem;
+            //   }
+            //   @media (min-width: ${theme.breakpoints.values.md}px) {
+            //     font-size: 6rem;
+            //   }
+            //   @media (min-width: 1126px) {
+            //     font-size: 8rem;
+            //   }
+            //   @media (min-width: 1260px) {
+            //     font-size: 9rem;
+            //   }
+            // `}
+          >
+            B
+          </Typography>
+        ) : (
+          <>
+            {['BRANDO', 'JUBERD'].map((text) => (
+              <Grid item xs={12}>
+                <Typography
+                  color="grey.A100"
+                  variant="h1"
+                  lineHeight={'73%'}
+                  fontFamily={'Arial, Helvetica, sans-serif;'}
+                  css={css`
+                    @media (max-width: 336px) {
+                      font-size: 9rem;
+                    }
+                    @media (min-width: ${theme.breakpoints.values.md}px) {
+                      font-size: 6rem;
+                    }
+                    @media (min-width: 1126px) {
+                      font-size: 8rem;
+                    }
+                    @media (min-width: 1260px) {
+                      font-size: 9rem;
+                    }
+                  `}
+                >
+                  {text}
+                </Typography>
+              </Grid>
+            ))}
+          </>
+        )}
 
         {/* <Grid item md={12}>
           <Typography
@@ -108,12 +214,13 @@ export default function ResponsiveHeader() {
         container
         css={css`
           // background-color: ${theme.palette.background.default};
-          flex-direction: row-reverse;
+          // flex-direction: row-reverse;
           @media (max-width: ${theme.breakpoints.values.md}px) {
             flex-direction: row;
             justify-content: center;
           }
         `}
+        direction={width < 40 ? 'column' : 'row-reverse'}
       >
         <Grid
           item
@@ -126,16 +233,32 @@ export default function ResponsiveHeader() {
           borderRadius={'4px'}
           css={css`
             // background-color: ${theme.palette.background.default};
-            flex-direction: row-reverse;
+            // flex-direction: row-reverse;
             margin-top: 1rem;
             @media (max-width: ${theme.breakpoints.values.md}px) {
-              flex-direction: row;
+              // flex-direction: row;
               justify-content: center;
             }
           `}
+          direction={width < 40 ? 'column' : 'row-reverse'}
         >
           {thirdPartyLinks.map((linkObj) => (
             <Grid item>
+              {/* {width < 40 ? (
+                <IconButton
+                  variant="contained"
+                  color="tertiary"
+                  startIcon={linkObj.icon}
+                  css={css`
+                    margin: 3px;
+                    border-radius: 30px;
+                  `}
+                  href={linkObj.link}
+                  target="_blank"
+                >
+                  {linkObj.icon}
+                </IconButton>
+              ) : ( */}
               <Button
                 variant="contained"
                 color="tertiary"
@@ -146,10 +269,12 @@ export default function ResponsiveHeader() {
                 `}
                 href={linkObj.link}
                 target="_blank"
+
                 // la={linkObj.label}
               >
-                {linkObj.label}
+                {width < 40 ? '' : linkObj.label}
               </Button>
+              {/* )} */}
             </Grid>
           ))}
 
@@ -178,6 +303,17 @@ export default function ResponsiveHeader() {
           {/* <Chip icon={<Medium />}  label="Medium" color="tertiary" /> */}
         </Grid>
       </Grid>
+      <Puller
+        // variant="contained"
+        color="tertiary"
+        draggable
+        onClick={handleClickPuller}
+        // onDrag={(e) => {
+        //   handleDragPuller(e);
+        // }}
+        // onDragEnd={handlerDragEndPuller}
+      />
+
       {/* <Typography color="secondary" variant="h1</Typography> */}
     </Grid>
   );
