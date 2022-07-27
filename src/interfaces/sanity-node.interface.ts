@@ -13,4 +13,12 @@ export interface SanityStoryNode {
     }[];
   }[];
   title: string;
+  banner: {
+    asset: {
+      url: string
+      resize: {
+        src: string
+      }
+    }
+  }
 }

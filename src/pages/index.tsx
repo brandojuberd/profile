@@ -40,7 +40,10 @@ const IndexPage = (props: IndexPageProps) => {
       {data.allSanityStory.nodes.map((node) => {
         return <StoryPreview sanityNode={node} />;
       })}
-      <Grid item>
+      {data.allSanityStory.nodes.map((node) => {
+        return <StoryPreview sanityNode={node} />;
+      })}
+      {/* <Grid item>
         <Typography
           // css={css`
           //   margin-top: 0;
@@ -49,24 +52,7 @@ const IndexPage = (props: IndexPageProps) => {
         >
           Tech guy.
         </Typography>
-        {/* <h3>{frontmatter.date}</h3> */}
-        {/* <Typography
-          css={css`
-            * {
-              padding: 0;
-              margin: 0;
-            }
-          `}
-          variant="subtitle1"
-        >
-          A Software Engineer has experience in developing websites and servers.
-          I learned to program primarily self-taught but I also graduated from a
-          code boot camp, from the learning journey I learn how to solve
-          problems with the right paradigm and critical thinking, and in
-          developing new technology or application I need an aptitude to learn
-          and adapt which I believe I have.
-        </Typography> */}
-      </Grid>
+      </Grid> */}
       {/* <Grid item>
         <Typography variant="h3">Algorithm</Typography>
       </Grid>
@@ -100,6 +86,14 @@ export const query = graphql`
           _rawChildren(resolveReferences: { maxDepth: 10 })
         }
         title
+        banner {
+          asset {
+            url
+            resize(aspectRatio: 1, width: 500, height: 500) {
+              src
+            }
+          }
+        }
       }
     }
   }
