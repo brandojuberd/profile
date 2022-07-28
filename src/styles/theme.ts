@@ -130,6 +130,34 @@ export const globalCss = css`
       // right: 0;
     }
   }
+
+  .navbarClose{
+    animation-duration: 0.5s;
+    animation-name: toClose;
+    animation-fill-mode: forwards;
+  }
+  @keyframes toClose{
+    0% {
+      width: 50%;
+    }
+    100% {
+      width: 10%;
+    }
+  }
+
+  .navbarOpen{
+    animation-duration: 0.5s;
+    animation-name: toOpen;
+    animation-fill-mode: forwards;
+  }
+  @keyframes toOpen{
+    0% {
+      width: 10%;
+    }
+    100% {
+      width: 50%;
+    }
+  }
 `;
 
 export const materialUiTheme = createTheme({

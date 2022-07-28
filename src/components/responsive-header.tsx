@@ -37,7 +37,7 @@ const Puller = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? grey[300] : grey[900],
   borderRadius: 3,
   position: 'absolute',
-  right: 10,
+  right: 8,
   // left: 'calc(50% - 15px)',
   '&:hover': {
     background: theme.palette.mode === 'light' ? grey[400] : grey[400],
@@ -59,6 +59,8 @@ export default function ResponsiveHeader() {
     width: 50,
   });
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isClose, setIsClose] = useState(false);
+  const [title, setTitle] = useState(['BRANDO', 'JUBERD']);
   const [className, setClassName] = useState('');
   const [width, setWidth] = useState(50);
 
@@ -106,10 +108,38 @@ export default function ResponsiveHeader() {
 
   function handleClickPuller(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    if (width === 50) {
-      setWidth(10);
+    // if (width === 50) {
+    //   setWidth(10);
+    // } else {
+    //   setWidth(50);
+    // }
+    const el = document.getElementById('responsive-header');
+    function setOpenTitle() {
+      // if(!isClose)
+      setTitle(['Brando', 'Juberd']);
+      el?.removeEventListener('animationend', setOpenTitle, false);
+    }
+    function setCloseTitle() {
+      // if(isClose)
+      setTitle(['B']);
+      el?.removeEventListener('animationstart', setCloseTitle, false);
+    }
+    if (el?.classList.contains('navbarClose')) {
+      el?.classList.remove('navbarClose');
+      el?.classList.add('navbarOpen');
+      setIsClose(false);
+      el?.addEventListener('animationend', setOpenTitle, false);
+      // elContainer?.classList.remove('contentContainerAnimation');
+      // elContainer?.classList.add('contentContainerAnimationBack');
     } else {
-      setWidth(50);
+      // window.scrollTo(0, 0);
+      // window.scrollTo(0, elContainer?.clientHeight || 0);
+      setIsClose(true);
+      el?.classList.remove('navbarOpen');
+      el?.classList.add('navbarClose');
+      el?.addEventListener('animationstart', setCloseTitle, false);
+      // elContainer?.classList.remove('contentContainerAnimationBack');
+      // elContainer?.classList.add('contentContainerAnimation');
     }
   }
   // useEffect(() => {
@@ -182,13 +212,13 @@ export default function ResponsiveHeader() {
   //   return () => window.removeEventListener('scroll', onScroll);
   // }, [scrollDir]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', setHeader, { passive: false });
-    // const element = document.getElementById('responsive-header');
-    // element?.addEventListener('animationstart', animationListener, false);
-    // element?.addEventListener('animationend', animationListener, false);
-    // element?.addEventListener('animationiteration', animationListener, false);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('scroll', setHeader, { passive: false });
+  //   // const element = document.getElementById('responsive-header');
+  //   // element?.addEventListener('animationstart', animationListener, false);
+  //   // element?.addEventListener('animationend', animationListener, false);
+  //   // element?.addEventListener('animationiteration', animationListener, false);
+  // }, []);
 
   function detectScroll() {
     const el = document.getElementById('responsive-header');
@@ -261,35 +291,24 @@ export default function ResponsiveHeader() {
         height: 100vh;
         width: 50%;
         // position: -webkit-sticky; /* Safari */
-        // position: sticky;
+        position: sticky;
         top: 0;
         padding: 1rem;
         text-align: center;
         @media (max-width: ${theme.breakpoints.values.md}px) {
           position: static;
           height: inherit;
-          padding: 1rem;
-          // flex-direction: column;
-          // justify-content: space-evenly;
-        }
-        @media (min-width: ${theme.breakpoints.values.md}px) {
-          text-align: right;
+          width: 100%;
         }
       `}
     >
-      <Grid item>
-        <Button
-          variant="contained"
-          color="tertiary"
-          // onClick={(e) => {
-          //   setHeader(e);
-          // }}
-        >
-          Click to move
-        </Button>
-      </Grid>
-      <Grid item container justifyContent={'space-evenly'}>
-        {['BRANDO', 'JUBERD'].map((text, i) => (
+      <Grid
+        item
+        container
+        justifyContent={isClose ? 'center' : 'flex-start'}
+        direction={isClose ? 'row' : 'row-reverse'}
+      >
+        {title.map((text, i) => (
           <Grid item xs={12} key={i}>
             <Typography
               color="grey.A100"
@@ -297,16 +316,21 @@ export default function ResponsiveHeader() {
               lineHeight={'73%'}
               fontFamily={'Arial, Helvetica, sans-serif;'}
               css={css`
-                @media (max-width: 336px) {
-                  font-size: 9rem;
+                text-align: center;
+                font-size: 3.5rem;
+                @media (min-width: ${theme.breakpoints.values.sm}px) {
+                  font-size: 6rem;
                 }
                 @media (min-width: ${theme.breakpoints.values.md}px) {
+                  text-align: ${isClose ? 'center' : 'right'};
                   font-size: 6rem;
                 }
                 @media (min-width: 1126px) {
+                  text-align: ${isClose ? 'center' : 'right'};
                   font-size: 8rem;
                 }
                 @media (min-width: 1260px) {
+                  text-align: ${isClose ? 'center' : 'right'};
                   font-size: 9rem;
                 }
               `}
@@ -339,14 +363,13 @@ export default function ResponsiveHeader() {
         item
         container
         css={css`
-          // background-color: ${theme.palette.background.default};
-          flex-direction: row-reverse;
-          @media (max-width: ${theme.breakpoints.values.md}px) {
-            // flex-direction: row;
-            justify-content: center;
-          }
+          // // background-color: ${theme.palette.background.default};
+          // // flex-direction: row-reverse;
+          // @media (max-width: ${theme.breakpoints.values.md}px) {
+          //   // flex-direction: row;
+          //   justify-content: center;
+          // }
         `}
-        direction={width < 40 ? 'column' : 'row-reverse'}
       >
         <Grid
           item
@@ -359,13 +382,15 @@ export default function ResponsiveHeader() {
           borderRadius={'4px'}
           css={css`
             // background-color: ${theme.palette.background.default};
-            flex-direction: row-reverse;
+            // flex-direction: row-reverse;
             margin-top: 1rem;
             @media (max-width: ${theme.breakpoints.values.md}px) {
               flex-direction: row;
               justify-content: center;
             }
           `}
+          justifyContent={isClose ? 'center' : 'flex-start'}
+          direction={isClose ? 'row' : 'row-reverse'}
         >
           {thirdPartyLinks.map((linkObj, i) => (
             <Grid item key={i}>
@@ -381,7 +406,7 @@ export default function ResponsiveHeader() {
                 target="_blank"
                 // la={linkObj.label}
               >
-                {linkObj.label}
+                {isClose ? '' : linkObj.label}
               </Button>
             </Grid>
           ))}
@@ -412,8 +437,14 @@ export default function ResponsiveHeader() {
         </Grid>
       </Grid>
       {/* <Typography color="secondary" variant="h1</Typography> */}
+      {}
       <Puller
         // variant="contained"
+        css={css`
+          @media (max-width: ${theme.breakpoints.values.md}px) {
+            display: none;
+          }
+        `}
         color="tertiary"
         draggable
         onClick={handleClickPuller}
