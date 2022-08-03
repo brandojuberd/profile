@@ -30,21 +30,24 @@ export const wrapRootElement: GatsbyBrowser['wrapPageElement'] = ({
         <Grid
           {...props}
           container
-          // css={css`
-          //   background-color: ${colors.red};
-          // `}
+          css={css`
+            height: auto;
+          `}
         >
           <ResponsiveHeader />
           <Grid
             item
-            md={6}
+            // md={6}
             container
             justifyContent={'center'}
             alignItems={'center'}
             css={css`
               background-color: ${materialUiTheme.palette.background.default};
-              width: 100%;
+              // background-color: red;
+              width: 50%;
+              right: 0;
             `}
+            id="content-container"
           >
             {element}
           </Grid>

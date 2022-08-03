@@ -63,6 +63,17 @@ const IndexPage = (props: IndexPageProps) => {
         <Typography variant="h3">Softwware</Typography>
       </Grid> */}
     </Grid>
+    //   <Grid
+    //     item
+    //     container
+    //     css={css`
+    //       height: 100vh;
+    //       @media (max-width: ${theme.breakpoints.values.md}px) {
+    //         height: inherit;
+    //       }
+    //     `}
+    //   ></Grid>
+    // </>
   );
 };
 
