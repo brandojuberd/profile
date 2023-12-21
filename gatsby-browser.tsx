@@ -35,7 +35,7 @@ export const wrapRootElement: GatsbyBrowser['wrapPageElement'] = ({
           `}
         >
           <ResponsiveHeader />
-          <Grid
+          {/* <Grid
             item
             // md={6}
             container
@@ -50,7 +50,7 @@ export const wrapRootElement: GatsbyBrowser['wrapPageElement'] = ({
             id="content-container"
           >
             {element}
-          </Grid>
+          </Grid> */}
         </Grid>
       </ThemeProvider>
     </>

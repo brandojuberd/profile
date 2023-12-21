@@ -281,7 +281,7 @@ export default function ResponsiveHeader() {
       alignItems={'center'}
       alignContent={'center'}
       direction={'row-reverse'}
-      // md={gridSize}
+      md={12}
       id={'responsive-header'}
       className={className}
       // height={gridSize === 6 ? '100vh' : 'inherit'}
@@ -297,7 +297,7 @@ export default function ResponsiveHeader() {
         text-align: center;
         @media (max-width: ${theme.breakpoints.values.md}px) {
           position: static;
-          height: inherit;
+          // height: inherit;
           width: 100%;
         }
       `}
@@ -438,7 +438,7 @@ export default function ResponsiveHeader() {
       </Grid>
       {/* <Typography color="secondary" variant="h1</Typography> */}
       {}
-      <Puller
+      {/* <Puller
         // variant="contained"
         css={css`
           @media (max-width: ${theme.breakpoints.values.md}px) {
@@ -452,7 +452,7 @@ export default function ResponsiveHeader() {
         //   handleDragPuller(e);
         // }}
         // onDragEnd={handlerDragEndPuller}
-      />
+      /> */}
     </Grid>
   );
 }

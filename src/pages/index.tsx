@@ -37,12 +37,12 @@ const IndexPage = (props: IndexPageProps) => {
       `}
     >
       <SEO {...props} />
-      {data.allSanityStory.nodes.map((node) => {
+      {/* {data.allSanityStory.nodes.map((node) => {
         return <StoryPreview sanityNode={node} />;
       })}
       {data.allSanityStory.nodes.map((node) => {
         return <StoryPreview sanityNode={node} />;
-      })}
+      })} */}
       {/* <Grid item>
         <Typography
           // css={css`
@@ -77,36 +77,36 @@ const IndexPage = (props: IndexPageProps) => {
   );
 };
 
-export const query = graphql`
-  query MyQuery {
-    allSanityStory(sort: { fields: _createdAt, order: DESC }) {
-      nodes {
-        _createdAt
-        _id
-        body {
-          _key
-          children {
-            _key
-            text
-            marks
-            _type
-          }
-          list
-          style
-          _type
-          _rawChildren(resolveReferences: { maxDepth: 10 })
-        }
-        title
-        banner {
-          asset {
-            url
-            resize(aspectRatio: 1, width: 500, height: 500) {
-              src
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+// export const query = graphql`
+//   query MyQuery {
+//     allSanityStory(sort: { fields: _createdAt, order: DESC }) {
+//       nodes {
+//         _createdAt
+//         _id
+//         body {
+//           _key
+//           children {
+//             _key
+//             text
+//             marks
+//             _type
+//           }
+//           list
+//           style
+//           _type
+//           _rawChildren(resolveReferences: { maxDepth: 10 })
+//         }
+//         title
+//         banner {
+//           asset {
+//             url
+//             resize(aspectRatio: 1, width: 500, height: 500) {
+//               src
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 export default IndexPage;
